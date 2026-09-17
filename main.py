@@ -1,3 +1,4 @@
+import os
 # -*- coding: utf-8 -*-
 """ربات مدیریت جام جهانی ۲۰۲۶ بله - نسخه تکفایلی."""
 import sqlite3
@@ -114,7 +115,7 @@ POSITION_FA = {"GK": "دروازهبان", "DF": "مدافع", "MF": "هافبک
 
 
 # تنظیمات حساس/محلی
-BOT_TOKEN = "460332597:5RtOn61a63aJyCQB5Ds-qeuo-oYEBGMQIRM"
+BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
 CHANNEL_ID = "@FootballXchannel"
 # ========================= دیتابیس =========================
 @contextmanager
@@ -356,7 +357,7 @@ def seed_data():
                     vals=(pinfo["name"],pos,p,speed,shooting,passing,defending,stamina)
 
                     if i < len(existing):
-                        c.execute("""UPDATE world_cup_players
+                        c.execute("""UPDATE OR IGNORE world_cup_players
                                      SET player_name=?,position=?,power=?,speed=?,shooting=?,passing=?,defending=?,stamina=?
                                      WHERE player_id=?""", vals + (existing[i]["player_id"],))
                     else:
@@ -385,7 +386,7 @@ def seed_data():
                     stamina=max(45,min(99,p+random.uniform(-4,4)))
                     if i < len(existing):
                         # جایگزینی بازیکن قبلی (مثلاً نام placeholder) بهجای درج تکراری
-                        c.execute("""UPDATE world_cup_players
+                        c.execute("""UPDATE OR IGNORE world_cup_players
                                      SET player_name=?,position=?,power=?,speed=?,shooting=?,passing=?,defending=?,stamina=?
                                      WHERE player_id=?""",
                                   (player_name,pos,p,speed,shooting,passing,defending,stamina,existing[i]["player_id"]))
