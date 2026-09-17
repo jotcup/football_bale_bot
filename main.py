@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ربات مدیریت جام جهانی ۲۰۲۶ بله - نسخه تک‌فایلی."""
 import sqlite3
-import os
 import logging
 import random
 import math
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(
 logger = logging.getLogger("WorldCupBot2026")
 
 from pathlib import Path
-BASE_DIR = Path(os.getenv("DATA_DIR", str(Path(__file__).resolve().parent)))
+BASE_DIR = Path(__file__).resolve().parent
 # مسیر دیتابیس (قبلاً در فایل جدای database_config.py بود، حالا همین‌جا تعریف شده)
 DATABASE_PATH = str(BASE_DIR / "world_cup_bot.db")
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -115,9 +114,7 @@ POSITION_FA = {"GK": "دروازه‌بان", "DF": "مدافع", "MF": "هاف�
 
 
 # تنظیمات حساس/محلی
-BOT_TOKEN = os.getenv("323724086:EyfZ2zBFBKzrC-_hvcmYk2d2y0-0zdKZRgU", "").strip()
-if not BOT_TOKEN:
-    raise RuntimeError("BOT_TOKEN environment variable is required")
+BOT_TOKEN = "460332597:5RtOn61a63aJyCQB5Ds-qeuo-oYEBGMQIRM"
 CHANNEL_ID = "@FootballXchannel"
 # ========================= دیتابیس =========================
 @contextmanager
